@@ -150,7 +150,7 @@ public class CordovaHMSPush extends CordovaPlugin {
         }
         
         
-        object.put("additionalData",regId);
+        object.put("additionalData",message.getData());
         String format = "window.cordova.plugins.hmspush.onMessageReceived(%s);";
         final String js = String.format(format, object.toString());
         activity.runOnUiThread(new Runnable() {
@@ -168,10 +168,10 @@ public class CordovaHMSPush extends CordovaPlugin {
             processWithin10s(message);
         }
     }
-    private void startWorkManagerJob(RemoteMessage message) {
+    private static void startWorkManagerJob(RemoteMessage message) {
         Log.d(TAG, "Start new job processing.");
     }
-    private void processWithin10s(RemoteMessage message) {
+    private static void processWithin10s(RemoteMessage message) {
         Log.d(TAG, "Processing now.");
     }
 }
