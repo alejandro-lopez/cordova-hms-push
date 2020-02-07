@@ -33,3 +33,12 @@ document.addEventListener('hmspush.tokenRegistered', function (event) {
 }.bind(this), false);
 ```
 You can get the token value by `event.token`
+
+### Message Received
+
+```javascript
+document.addEventListener('hmspush.onMessageReceived', function (event) {
+    console.log(event.additionalData)
+}.bind(this), false);
+```
+You can get the token value by `event.additionalData`
