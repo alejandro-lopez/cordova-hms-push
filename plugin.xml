@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-hms-push" version="0.0.8" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Cordova-HMS-Push</name>
+    <description>Cordova Huawei Push Plugin</description>
+    <author>ryanlin@outlook.com</author>
+    <license>MIT</license>
+    <keywords>cordova,huawei,push,hmspush,hms</keywords>
+
+    <dependency id="cordova-plugin-device" />
+    <js-module name="CordovaHMSPush" src="www/cordova-hms-push.js">
+        <clobbers target="cordova.plugins.hmspush" />
+    </js-module>
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="CordovaHMSPush">
+                <param name="android-package" value="com.uisgr.hmspush.CordovaHMSPush"/>
+            </feature>
+        </config-file>
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <service
+                android:name="com.uisgr.hmspush.UISGRHmsMessageService"
+                android:exported="false">
+                <intent-filter>
+                    <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
+                </intent-filter>
+            </service>
+        </config-file>
+        <framework src="src/android/hmspush.gradle" custom="true" type="gradleReference" />
+        <source-file src="src/android/CordovaHMSPush.java" target-dir="src/com/uisgr/hmspush/" />
+        <source-file src="src/android/UISGRHmsMessageService.java" target-dir="src/com/uisgr/hmspush/" />
+    </platform>
+</plugin>

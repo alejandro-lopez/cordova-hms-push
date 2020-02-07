@@ -1,0 +1,68 @@
+{
+  "_from": "cordova-hms-push",
+  "_id": "cordova-hms-push@0.0.8",
+  "_inBundle": false,
+  "_integrity": "sha512-OeT9FPTTQjWgm+ipTSAZZocnuITo7IoOir8z662ykwHZw4nwxSD8U0btb7lcQ8Cl/7r4nB6btmr+f4ckXepSlw==",
+  "_location": "/cordova-hms-push",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-hms-push",
+    "name": "cordova-hms-push",
+    "escapedName": "cordova-hms-push",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-hms-push/-/cordova-hms-push-0.0.8.tgz",
+  "_shasum": "065f074730e326727d50fb6b3b933c5b744c64be",
+  "_spec": "cordova-hms-push",
+  "_where": "C:\\HMS Test",
+  "author": {
+    "name": "iflamed"
+  },
+  "bugs": {
+    "url": "https://github.com/iflamed/cordova-huawei-push/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-hms-push",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova huawei Push Plugin",
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "homepage": "https://github.com/iflamed/cordova-huawei-push#readme",
+  "keywords": [
+    "cordova",
+    "cordova-android",
+    "device",
+    "push",
+    "huawei",
+    "ecosystem:cordova",
+    "hms"
+  ],
+  "license": "MIT",
+  "name": "cordova-hms-push",
+  "peerDependencies": {
+    "cordova-plugin-device": ">=1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wininsoft/cordova-huawei-push.git"
+  },
+  "version": "0.0.8"
+}
