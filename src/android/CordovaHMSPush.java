@@ -81,7 +81,7 @@ public class CordovaHMSPush extends CordovaPlugin {
                     HmsInstanceId.getInstance(activity).deleteToken(appId, "HCM");
                     Log.i(TAG, "deleteToken success.");
                     callbackContext.success("{status:\"success\"}");
-                } catch (ApiException e) {
+                } catch (Exception e) {
                     Log.e(TAG, "deleteToken failed." + e);
                     callbackContext.error("{status:\"failed\"}");
                 }
