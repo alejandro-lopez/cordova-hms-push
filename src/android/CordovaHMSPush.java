@@ -70,7 +70,24 @@ public class CordovaHMSPush extends CordovaPlugin {
         }.start();
         this.initCallback = callbackContext;
     }
-
+    public static void deleteToken(CallbackContext callbackContext) {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    // read from agconnect-services.json
+                    String appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
+                    HmsInstanceId.getInstance(activity).deleteToken(appId, "HCM");
+                    Log.i(TAG, "deleteToken success.");
+                    callbackContext.success("{status:\"success\"}");
+                } catch (ApiException e) {
+                    Log.e(TAG, "deleteToken failed." + e);
+                    callbackContext.error("{status:\"failed\"}");
+                }
+            }
+        }.start();
+        this.initCallback = callbackContext;
+    }
     public static void onTokenRegistered(String regId) {
         Log.e(TAG, "-------------onTokenRegistered------------------" + regId);
         if (instance == null) {
@@ -91,4 +108,25 @@ public class CordovaHMSPush extends CordovaPlugin {
             e.printStackTrace();
         }
     }
+    
+    /*public static void onMessageReceived(String pushData) {
+        Log.e(TAG, "-------------onTokenRegistered------------------" + pushData);
+        if (instance == null) {
+            return;
+        }
+        try {
+            JSONObject object = new JSONObject();
+            object.put("token",regId);
+            String format = "window.cordova.plugins.hmspush.tokenRegistered(%s);";
+            final String js = String.format(format, object.toString());
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    instance.webView.loadUrl("javascript:" + js);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }*/
 }
