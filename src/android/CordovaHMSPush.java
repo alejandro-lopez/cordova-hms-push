@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 import android.util.Log;
 import java.lang.Thread;
+import java.util.Arrays;
 import android.app.Activity;
 import com.huawei.hms.push.RemoteMessage;
 import com.huawei.agconnect.config.*;
@@ -110,7 +111,6 @@ public class CordovaHMSPush extends CordovaPlugin {
         }
     }
     
-    @Override
     public static void onMessageReceived(RemoteMessage message) {
         Log.i(TAG, "onMessageReceived is called");
         if (message == null) {
