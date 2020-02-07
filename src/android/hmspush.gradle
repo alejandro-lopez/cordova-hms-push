@@ -20,3 +20,8 @@ allprojects {
 dependencies {
     implementation 'com.huawei.hms:push:4.0.0.300'
 }
+// apply plugin: 'com.google.gms.google-services'
+// class must be used instead of id(string) to be able to apply plugin from non-root gradle file
+ext.postBuildExtras = {
+    apply plugin: 'com.huawei.agconnect'
+}
