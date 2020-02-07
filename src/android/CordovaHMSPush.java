@@ -54,8 +54,9 @@ public class CordovaHMSPush extends CordovaPlugin {
         new Thread() {
             @Override
             public void run() {
+                String appId = "";
                 try {
-                    String appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
+                    appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
                     token = HmsInstanceId.getInstance(activity).getToken(appId, "HCM");
                     if (!TextUtils.isEmpty(token)) {
                         Log.i(TAG, "get token:" + token);
@@ -65,7 +66,7 @@ public class CordovaHMSPush extends CordovaPlugin {
                     }
                 } catch (Exception e) {
                     onTokenRegistered(e.getMessage());
-                    callbackContext.error("{status:\"failed\"}");
+                    callbackContext.error("{status:\"failed\",appId:\""+appId+"\"}");
                     Log.i(TAG, "getToken failed, " + e);
                 }
             }
