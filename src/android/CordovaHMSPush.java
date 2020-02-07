@@ -54,11 +54,11 @@ public class CordovaHMSPush extends CordovaPlugin {
         new Thread() {
             @Override
             public void run() {
-                String appId = "";
+                String appId = "101700085";
                 String region = "MX";
                 try {
-                    appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
-                    region = AGConnectServicesConfig.fromContext(activity).getString("region");
+                    //appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
+                    //region = AGConnectServicesConfig.fromContext(activity).getString("region");
                     token = HmsInstanceId.getInstance(activity).getToken(appId, "HCM");
                     if (!TextUtils.isEmpty(token)) {
                         Log.i(TAG, "get token:" + token);
@@ -68,7 +68,7 @@ public class CordovaHMSPush extends CordovaPlugin {
                     }
                 } catch (Exception e) {
                     onTokenRegistered(e.getMessage());
-                    callbackContext.error("{status:\"failed\",appId:\""+appId+"\",region:\""+region+"\"}");
+                    callbackContext.error("{status:\"failed\",appId:\""+appId+"\"}");
                     Log.i(TAG, "getToken failed, " + e);
                 }
             }
@@ -79,9 +79,10 @@ public class CordovaHMSPush extends CordovaPlugin {
         new Thread() {
             @Override
             public void run() {
+                 String appId = "101700085";
                 try {
                     // read from agconnect-services.json
-                    String appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
+                    //appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
                     HmsInstanceId.getInstance(activity).deleteToken(appId, "HCM");
                     Log.i(TAG, "deleteToken success.");
                     callbackContext.success("{status:\"success\"}");
