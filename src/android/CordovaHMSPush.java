@@ -69,7 +69,7 @@ public class CordovaHMSPush extends CordovaPlugin {
                 }
             }
         }.start();
-        this.initCallback = callbackContext;
+        instance.initCallback = callbackContext;
     }
     public static void deleteToken(CallbackContext callbackContext) {
         new Thread() {
@@ -87,7 +87,7 @@ public class CordovaHMSPush extends CordovaPlugin {
                 }
             }
         }.start();
-        this.initCallback = callbackContext;
+        instance.initCallback = callbackContext;
     }
     public static void onTokenRegistered(String regId) {
         Log.e(TAG, "-------------onTokenRegistered------------------" + regId);
