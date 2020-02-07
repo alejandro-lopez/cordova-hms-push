@@ -57,9 +57,9 @@ public class CordovaHMSPush extends CordovaPlugin {
                 String appId = "";
                 String region = "MX";
                 try {
-                    appId = AGConnectServicesConfig.fromContext(MainActivity.this).getString("client/app_id");
-                    region = AGConnectServicesConfig.fromContext(MainActivity.this).getString("region");
-                    token = HmsInstanceId.getInstance(MainActivity.this).getToken(appId, "HCM");
+                    appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
+                    region = AGConnectServicesConfig.fromContext(activity).getString("region");
+                    token = HmsInstanceId.getInstance(activity).getToken(appId, "HCM");
                     if (!TextUtils.isEmpty(token)) {
                         Log.i(TAG, "get token:" + token);
                         CordovaHMSPush.token = token;
