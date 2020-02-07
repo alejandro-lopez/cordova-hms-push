@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import java.lang.Thread;
 import android.app.Activity;
+import com.huawei.hms.push.RemoteMessage;
 import com.huawei.agconnect.config.*;
 import com.huawei.hms.aaid.HmsInstanceId;
 
@@ -109,24 +110,68 @@ public class CordovaHMSPush extends CordovaPlugin {
         }
     }
     
-    /*public static void onMessageReceived(String pushData) {
-        Log.e(TAG, "-------------onTokenRegistered------------------" + pushData);
-        if (instance == null) {
+    @Override
+    public static void onMessageReceived(RemoteMessage message) {
+        Log.i(TAG, "onMessageReceived is called");
+        if (message == null) {
+            Log.e(TAG, "Received message entity is null!");
             return;
         }
-        try {
-            JSONObject object = new JSONObject();
-            object.put("token",regId);
-            String format = "window.cordova.plugins.hmspush.tokenRegistered(%s);";
-            final String js = String.format(format, object.toString());
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    instance.webView.loadUrl("javascript:" + js);
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
+        Log.i(TAG, "getCollapseKey: " + message.getCollapseKey()
+                + "\n getData: " + message.getData()
+                + "\n getFrom: " + message.getFrom()
+                + "\n getTo: " + message.getTo()
+                + "\n getMessageId: " + message.getMessageId()
+                + "\n getOriginalUrgency: " + message.getOriginalUrgency()
+                + "\n getUrgency: " + message.getUrgency()
+                + "\n getSendTime: " + message.getSentTime()
+                + "\n getMessageType: " + message.getMessageType()
+                + "\n getTtl: " + message.getTtl());
+        RemoteMessage.Notification notification = message.getNotification();
+        JSONObject object = new JSONObject();
+        if (notification != null) {
+            Log.i(TAG, "\n getImageUrl: " + notification.getImageUrl()
+                    + "\n getTitle: " + notification.getTitle()
+                    + "\n getTitleLocalizationKey: " + notification.getTitleLocalizationKey()
+                    + "\n getTitleLocalizationArgs: " + Arrays.toString(notification.getTitleLocalizationArgs())
+                    + "\n getBody: " + notification.getBody()
+                    + "\n getBodyLocalizationKey: " + notification.getBodyLocalizationKey()
+                    + "\n getBodyLocalizationArgs: " + Arrays.toString(notification.getBodyLocalizationArgs())
+                    + "\n getIcon: " + notification.getIcon()
+                    + "\n getSound: " + notification.getSound()
+                    + "\n getTag: " + notification.getTag()
+                    + "\n getColor: " + notification.getColor()
+                    + "\n getClickAction: " + notification.getClickAction()
+                    + "\n getChannelId: " + notification.getChannelId()
+                    + "\n getLink: " + notification.getLink()
+                    + "\n getNotifyId: " + notification.getNotifyId());
+            object.put("title",notification.getTitle());
+            object.put("message",notification.getBody());
         }
-    }*/
+        
+        
+        object.put("additionalData",regId);
+        String format = "window.cordova.plugins.hmspush.onMessageReceived(%s);";
+        final String js = String.format(format, object.toString());
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                instance.webView.loadUrl("javascript:" + js);
+            }
+        });
+        Boolean judgeWhetherIn10s = false;
+        // If the messages are not processed in 10 seconds, the app needs to use WorkManager for processing.
+        if (judgeWhetherIn10s) {
+            startWorkManagerJob(message);
+        } else {
+            // Process message within 10s
+            processWithin10s(message);
+        }
+    }
+    private void startWorkManagerJob(RemoteMessage message) {
+        Log.d(TAG, "Start new job processing.");
+    }
+    private void processWithin10s(RemoteMessage message) {
+        Log.d(TAG, "Processing now.");
+    }
 }
