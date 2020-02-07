@@ -57,9 +57,9 @@ public class CordovaHMSPush extends CordovaPlugin {
                 String appId = "101700085";
                 String region = "MX";
                 try {
-                    //appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
-                    //region = AGConnectServicesConfig.fromContext(activity).getString("region");
-                    token = HmsInstanceId.getInstance(activity).getToken(appId, "HCM");
+                    //appId = AGConnectServicesConfig.fromContext(CordovaHMSPush.this).getString("client/app_id");
+                    region = AGConnectServicesConfig.fromContext(CordovaHMSPush.this).getString("region");
+                    token = HmsInstanceId.getInstance(CordovaHMSPush.this).getToken(appId, "HCM");
                     if (!TextUtils.isEmpty(token)) {
                         Log.i(TAG, "get token:" + token);
                         CordovaHMSPush.token = token;
@@ -68,7 +68,7 @@ public class CordovaHMSPush extends CordovaPlugin {
                     }
                 } catch (Exception e) {
                     onTokenRegistered(e.getMessage());
-                    callbackContext.error("{status:\"failed\",appId:\""+appId+"\"}");
+                    callbackContext.error("{status:\"failed\",appId:\""+appId+"\",region:\""+region+"\"}");
                     Log.i(TAG, "getToken failed, " + e);
                 }
             }
@@ -82,8 +82,8 @@ public class CordovaHMSPush extends CordovaPlugin {
                  String appId = "101700085";
                 try {
                     // read from agconnect-services.json
-                    //appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
-                    HmsInstanceId.getInstance(activity).deleteToken(appId, "HCM");
+                    appId = AGConnectServicesConfig.fromContext(CordovaHMSPush.this).getString("client/app_id");
+                    HmsInstanceId.getInstance(CordovaHMSPush.this).deleteToken(appId, "HCM");
                     Log.i(TAG, "deleteToken success.");
                     callbackContext.success("{status:\"success\"}");
                 } catch (Exception e) {
