@@ -57,9 +57,9 @@ public class CordovaHMSPush extends CordovaPlugin {
                 String appId = "101700085";
                 String region = "MX";
                 try {
-                    //appId = AGConnectServicesConfig.fromContext(CordovaHMSPush.this).getString("client/app_id");
-                    region = AGConnectServicesConfig.fromContext(instance).getString("region");
-                    token = HmsInstanceId.getInstance(instance).getToken(appId, "HCM");
+                    //appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
+                    region = AGConnectServicesConfig.fromContext(activity).getString("region");
+                    token = HmsInstanceId.getInstance(activity).getToken(appId, "HCM");
                     if (!TextUtils.isEmpty(token)) {
                         Log.i(TAG, "get token:" + token);
                         CordovaHMSPush.token = token;
@@ -82,8 +82,8 @@ public class CordovaHMSPush extends CordovaPlugin {
                  String appId = "101700085";
                 try {
                     // read from agconnect-services.json
-                    appId = AGConnectServicesConfig.fromContext(instance).getString("client/app_id");
-                    HmsInstanceId.getInstance(instance).deleteToken(appId, "HCM");
+                    appId = AGConnectServicesConfig.fromContext(activity).getString("client/app_id");
+                    HmsInstanceId.getInstance(activity).deleteToken(appId, "HCM");
                     Log.i(TAG, "deleteToken success.");
                     callbackContext.success("{status:\"success\"}");
                 } catch (Exception e) {
